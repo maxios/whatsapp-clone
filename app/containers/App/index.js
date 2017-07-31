@@ -13,7 +13,7 @@ export default class App extends React.PureComponent { // eslint-disable-line re
     injectTapEventPlugin();
     return (
       <div>
-          {React.Children.toArray(this.props.children)}
+        {React.Children.toArray(this.props.children)}
       </div>
     );
   }

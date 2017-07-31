@@ -1,17 +1,15 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { shallow } from 'enzyme';
+import AppBarComponent from '../../../components/AppBar';
+import Menu from '../../../components/AppBar/MenuButton';
 
-import HomePage from '../index';
-import messages from '../messages';
+describe('AppBar Buttons', function() {
+  const AppBar = shallow(<AppBarComponent Menu/>)
 
-describe('<HomePage />', () => {
-  it('should render the page message', () => {
-    const renderedComponent = shallow(
-      <HomePage />
-    );
-    expect(renderedComponent.contains(
-      <FormattedMessage {...messages.header} />
-    )).toEqual(true);
+  it('should render Menu Button', function() {
+    expect(AppBar).toMatchSnapshot();
   });
+
 });
+
+

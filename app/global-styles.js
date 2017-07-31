@@ -6,6 +6,7 @@ injectGlobal`
   body {
     height: 100%;
     width: 100%;
+    overflow: hidden;
   }
 
   body {
@@ -26,5 +27,6 @@ injectGlobal`
   label {
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
+    margin: 0;
   }
 `;
