@@ -6,6 +6,11 @@ import AppBarComponent from '../../components/AppBar';
 import Input from '../../components/Input';
 import Message from '../../components/Message';
 
+import API from '../API/mock';
+
+import { connect } from 'react-redux';
+import { sendMessage } from './actions'
+
 // lets css griding the layout
 import {
   App,
@@ -16,37 +21,26 @@ import {
 } from './Grid';
 
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(){
-    super();
-
-    this.state = {
-      conversations: [
-        {
-          user: 'khaled maher',
-          LastMessage: 'well, It\'s terrible idea to code after mid-night',
-          Unread: 1,
-        },
-      ]
-    }
-
-  }
-
+class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    console.log(this.props.messages)
     return (
       <MuiThemeProvider>
         <App>
           <LeftSideTopBar Menu/>
           <ChatLists>
-            <Conversations data={this.state.conversations}/>
+            <Conversations/>
           </ChatLists>
 
           <RightSideTopBar Menu Attachment Search/>
           <ChatBody>
-            <Message float='left'/>
-            <Message float='right'/>
-            <Message float='right'/>
-            <Message float='right'/>
+            {
+              this.props.messages.map(message => {
+                return(
+                  <Message body={message.get('message')} />
+                )
+              })
+            }
           </ChatBody>
           <Input />
         </App>
@@ -54,3 +48,11 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    messages: state.get('messagesReducer').get('messages'),
+  }
+};
+
+export default connect(mapStateToProps)(HomePage)

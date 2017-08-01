@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Emoticon from './EmoticonButton';
 import Send from './SendButton';
+import { connect } from 'react-redux';
 
 const Wrapper = styled.div`
 background-color: #eee;
@@ -18,12 +19,17 @@ height: 100%;
 padding: 5px 15px;
 background-color: white;
 `
-const Input = () => (
+const Input = (props) => (
   <Wrapper>
     <Emoticon />
-    <InputText type='text'/>
+    <InputText onChange={props.onInputMessage} type='number'/>
     <Send />
   </Wrapper>
 )
 
-export default Input;
+const mapDispatchToProps = dispatch => {
+  return {
+    onInputMessage: (event) => dispatch(sendMessage(event.target.value))
+  }
+}
+export default connect(mapDispatchToProps)(Input);

@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components'
+import { connect } from 'react-redux';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
+import { getMessages } from '../../containers/HomePage/actions.js'
 
 import AvatarImage from './avatar-image.jpg';
 
@@ -46,10 +48,12 @@ color: white;
 const Conversations = (props) => (
   <List style={ListStyle}>
     {
-      props.data.map(chat => {
+      props.data.toJS().map(chat => {
         return(
           <ListItem
             value={1}
+            id={chat.id}
+            onClick={props.onGetMessages(1)}
             leftAvatar={
               <Avatar 
                 size={60} 
@@ -60,19 +64,14 @@ const Conversations = (props) => (
             style={ListItemStyle}
             innerDivStyle={{ padding: '0 0 0 100px' }}
             key={chat.user}
-          >
+        >
             <Name>
               {chat.user}
               <Date>12:12pm</Date>
             </Name>
 
             <LastMessage>
-              <p>{chat.LastMessage}</p>
-              {
-                props.unread ? (
-                  <Unread>{chat.unread}</Unread>
-                ): ''
-              }
+              <p>{chat.lastMessage}</p>
             </LastMessage>
           </ListItem>
         )
@@ -81,4 +80,16 @@ const Conversations = (props) => (
   </List>
 );
 
-export default Conversations;
+const mapDispatchToProps = dispatch => {
+  return {
+    onGetMessages: (id) => dispatch(getMessages(id))
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    data: state.get('messagesReducer').get('conversations')
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Conversations);
