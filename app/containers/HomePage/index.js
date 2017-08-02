@@ -6,8 +6,6 @@ import AppBarComponent from '../../components/AppBar';
 import Input from '../../components/Input';
 import Message from '../../components/Message';
 
-import API from '../API/mock';
-
 import { connect } from 'react-redux';
 import { sendMessage } from './actions'
 
@@ -36,8 +34,12 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           <ChatBody>
             {
               this.props.messages.map(message => {
+                console.log(message)
                 return(
-                  <Message body={message.get('message')} />
+                  <Message  
+                    key={message.get('message')} 
+                    body={message.get('message')}
+                  />
                 )
               })
             }

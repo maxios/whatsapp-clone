@@ -22,7 +22,7 @@ background-color: white;
 const Input = (props) => (
   <Wrapper>
     <Emoticon />
-    <InputText onChange={props.onInputMessage} type='number'/>
+      <InputText type='text'/>
     <Send />
   </Wrapper>
 )

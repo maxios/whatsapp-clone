@@ -53,7 +53,7 @@ const Conversations = (props) => (
           <ListItem
             value={1}
             id={chat.id}
-            onClick={props.onGetMessages(1)}
+            onTouchTap={() => props.onGetMessages(chat.id)}
             leftAvatar={
               <Avatar 
                 size={60} 
