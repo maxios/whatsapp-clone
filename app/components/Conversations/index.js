@@ -48,12 +48,15 @@ color: white;
 const Conversations = (props) => (
   <List style={ListStyle}>
     {
-      props.data.toJS().map(chat => {
+      props.data.map(chat => {
+        let id = chat.get('id')
+        let user = chat.getIn(['user', 'username'])
+        let lastMessage = chat.get('lastMessage')
+
         return(
           <ListItem
             value={1}
-            id={chat.id}
-            onTouchTap={() => props.onGetMessages(chat.id)}
+            onTouchTap={() => props.onGetMessages(id)}
             leftAvatar={
               <Avatar 
                 size={60} 
@@ -63,15 +66,15 @@ const Conversations = (props) => (
             }
             style={ListItemStyle}
             innerDivStyle={{ padding: '0 0 0 100px' }}
-            key={chat.user}
+            key={user}
         >
             <Name>
-              {chat.user}
+              {user}
               <Date>12:12pm</Date>
             </Name>
 
             <LastMessage>
-              <p>{chat.lastMessage}</p>
+              <p>{lastMessage}</p>
             </LastMessage>
           </ListItem>
         )

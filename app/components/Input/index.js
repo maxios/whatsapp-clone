@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Emoticon from './EmoticonButton';
 import Send from './SendButton';
 import { connect } from 'react-redux';
+import { sendMessage } from '../../containers/HomePage/actions.js';
 
 const Wrapper = styled.div`
 background-color: #eee;
@@ -19,17 +20,24 @@ height: 100%;
 padding: 5px 15px;
 background-color: white;
 `
-const Input = (props) => (
-  <Wrapper>
-    <Emoticon />
-      <InputText type='text'/>
-    <Send />
-  </Wrapper>
-)
+class Input extends React.Component {
+  render(){
+    return (
+      <Wrapper>
+        <Emoticon />
+        <InputText 
+          type='text'
+        />
+        <Send onTouchTap={() => this.props.onSendMessage(document.querySelector('input').value)}/>
+      </Wrapper>
+    )
+  }
+}
+
 
 const mapDispatchToProps = dispatch => {
   return {
-    onInputMessage: (event) => dispatch(sendMessage(event.target.value))
+    onSendMessage: (param) => dispatch(sendMessage(param))
   }
 }
-export default connect(mapDispatchToProps)(Input);
+export default connect(null, mapDispatchToProps)(Input);

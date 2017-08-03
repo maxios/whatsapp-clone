@@ -7,18 +7,12 @@ padding: 15px;
 width: 100%;
 min-height: 100px;
 `
-const BubbleAnimation = keyframes`
-0%{khalid}
-`
 const Bubble = styled.div`
 display: inline-block;
 padding: 20px;
 background-color: #aaa;
 float: ${props => props.float};
 word-wrap: break-word;
-transform: scale(0);
-
-animation: 
 `
 const TextMessage = styled.p`
 max-width: 30em;
@@ -27,7 +21,7 @@ text-overflow: ellipse;
 `
 const Message = (props) => (
   <Wrapper>
-    <Bubble float='right'>
+    <Bubble float={props.float}>
       <TextMessage>
       {props.body}
     </TextMessage>

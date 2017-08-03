@@ -4,6 +4,7 @@ import {
 } from './constants';
 
 export function sendMessage(message) {
+  console.log('sendMessage action')
   return {
     type: SEND_MESSAGE,
     message,

@@ -1,4 +1,5 @@
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import React from 'react';
 import styled from 'styled-components';
 import Conversations from '../../components/Conversations';
@@ -21,7 +22,8 @@ import {
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    console.log(this.props.messages)
+    const { messages, currentUser } = this.props
+    console.log(currentUser.get('id'))
     return (
       <MuiThemeProvider>
         <App>
@@ -33,15 +35,17 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
           <RightSideTopBar Menu Attachment Search/>
           <ChatBody>
             {
-              this.props.messages.map(message => {
-                console.log(message)
-                return(
-                  <Message  
-                    key={message.get('message')} 
-                    body={message.get('message')}
-                  />
-                )
-              })
+              messages ? (
+                messages.map(message => {
+                  return(
+                    <Message  
+                      key={message.get('id')} 
+                      body={message.get('message')}
+                      float={message.get('user_id') === currentUser.get('id') ? 'right' : 'left'}
+                    />
+                  )
+                })
+              ) : ('Select a conversation')
             }
           </ChatBody>
           <Input />
@@ -54,6 +58,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 const mapStateToProps = (state, ownProps) => {
   return {
     messages: state.get('messagesReducer').get('messages'),
+    currentUser: state.get('messagesReducer').get('currentUser'),
   }
 };
 
