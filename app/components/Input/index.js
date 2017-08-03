@@ -21,11 +21,20 @@ padding: 5px 15px;
 background-color: white;
 `
 class Input extends React.Component {
+
+  handleSendMessage(e){
+    console.log('heeey')
+    if (e.key == 'Enter') {
+      this.props.onSendMessage(document.querySelector('input').value);
+    }
+  }
+
   render(){
     return (
       <Wrapper>
         <Emoticon />
         <InputText 
+          onKeyPress={this.handleSendMessage.bind(this)}
           type='text'
         />
         <Send onTouchTap={() => this.props.onSendMessage(document.querySelector('input').value)}/>

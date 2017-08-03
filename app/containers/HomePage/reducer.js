@@ -72,6 +72,7 @@ function messagesReducer(state = initialState, action) {
   switch(action.type) {
     case SEND_MESSAGE:
       console.log('SEND_MESSAGE reducer')
+      document.querySelector('input').value = '';
       let message = fromJS({
         id: uuidv4(),
         user_id: currentUser.id,
