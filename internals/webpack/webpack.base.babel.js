@@ -51,6 +51,7 @@ module.exports = (options) => ({
       loader: 'html-loader',
     }, {
       test: /\.json$/,
+      exclude: /node_modules/,
       loader: 'json-loader',
     }, {
       test: /\.(mp4|webm)$/,
