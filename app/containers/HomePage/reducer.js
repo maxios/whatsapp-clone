@@ -58,10 +58,12 @@ const conversations__constructor = () => {
   return list;
 }
 
+const firstConversation = conversations__constructor()[0]
+
 const initialState = fromJS({
   conversations: conversations__constructor(),
-  openedConversation: null,
-  messages: null,
+  openedConversation: firstConversation.id,
+  messages: firstConversation.messages,
   currentUser: currentUser,
 })
 
